@@ -4,14 +4,20 @@ import path from 'path';
 const __dirname = import.meta.dirname;
 import dotenv from 'dotenv';
 dotenv.config({ path: path.join(__dirname, '.env') });
-import { dbShutdown, getConnection } from './models/movies.js';
+import * as moviesModel from './models/movies.js';
 
 async function main() {
     // MySQLの接続設定
-    const connection = await getConnection();
+    const connection = await moviesModel.getConnection();
 
     // サーバー終了時にDB接続を閉じる
-    dbShutdown(connection);
+    moviesModel.dbShutdown(connection);
+
+    // moviesテーブルの作成
+    await moviesModel.createMoviesTable(connection);
+
+    moviesModel.insertInitialMovies(connection)
+        .then(() => console.log('初期データを挿入しました'))
 
     app.set('view engine', 'ejs');
     app.set('views', path.join(__dirname, 'views'));

@@ -4,7 +4,7 @@ import path from 'path';
 const __dirname = import.meta.dirname;
 import dotenv from 'dotenv';
 dotenv.config({ path: path.join(__dirname, '.env') });
-import { dbShutdown, getConnection } from './models/movies';
+import { dbShutdown, getConnection } from './models/movies.js';
 
 async function main() {
     // MySQLの接続設定

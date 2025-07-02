@@ -1,4 +1,5 @@
 import mysql from 'mysql2/promise';
+// .envはapp.jsで読み込み済み
 
 export async function getConnection() {
   return await mysql.createConnection({

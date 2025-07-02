@@ -15,6 +15,12 @@ async function main() {
         database: process.env.DB_NAME
     });
 
+    // サーバー終了時にDB接続を閉じる
+    process.on('SIGINT', async () => {
+        await connection.end();
+        process.exit();
+    });
+
     app.set('view engine', 'ejs');
     app.set('views', path.join(__dirname, 'views'));
 

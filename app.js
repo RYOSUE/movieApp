@@ -1,25 +1,17 @@
 import express from 'express';
 const app = express();
-const __dirname = import.meta.dirname;
 import path from 'path';
+const __dirname = import.meta.dirname;
 import dotenv from 'dotenv';
 dotenv.config({ path: path.join(__dirname, '.env') });
-import mysql from 'mysql2/promise';
+import { dbShutdown, getConnection } from './models/movies';
 
 async function main() {
     // MySQLの接続設定
-    const connection = await mysql.createConnection({
-        host: 'localhost',
-        user: process.env.DB_USER,
-        password: process.env.DB_PASSWORD,
-        database: process.env.DB_NAME
-    });
+    const connection = await getConnection();
 
     // サーバー終了時にDB接続を閉じる
-    process.on('SIGINT', async () => {
-        await connection.end();
-        process.exit();
-    });
+    dbShutdown(connection);
 
     app.set('view engine', 'ejs');
     app.set('views', path.join(__dirname, 'views'));

@@ -68,6 +68,12 @@ async function main() {
         res.redirect('/movies');
     })
 
+    app.delete('/movies/:id', async (req, res) => {
+        const id = req.params.id;
+        await moviesModel.deleteMovie(connection, id);
+        res.redirect('/movies');
+    })
+
     app.listen(3000, () => {
         console.log('ポート3000でリクエストを待ち受け中...');
     });

@@ -1,15 +1,25 @@
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>詳細ページ</title>
 </head>
+
 <body>
-    <h1><%= movie.title %></h1>
-    <p>評価: <%= movie.rating %></p>
-    <p>観た: <%= movie.watched ? 'はい' : 'いいえ' %></p>
+    <h1>
+        <%= movie.title %>
+    </h1>
+    <p>評価: <%= movie.rating %>
+    </p>
+    <p>観た: <%= movie.watched ? 'はい' : 'いいえ' %>
+    </p>
     <a href="/movies/<%= movie.id %>/edit">編集</a>
+    <form action="/movies/<%= movie.id %>?_method=DELETE" method="POST">
+        <button>削除</button>
+    </form>
     <a href="/movies">一覧に戻る</a>
 </body>
+
 </html>

@@ -40,6 +40,15 @@ async function main() {
         res.render('new');
     });
 
+    app.get('/movies/:id', async (req, res) => {
+        const id = req.params.id;
+        const movie = await moviesModel.getMovieById(connection, id);
+        if (!movie) {
+            return res.status(404).send('Movie not found');
+        }
+        res.render('show', { movie });
+    })
+
     app.get('/movies/:id/edit', async (req, res) => {
         const id = req.params.id;
         const movie =  await moviesModel.getMovieById(connection, id);

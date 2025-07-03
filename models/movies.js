@@ -69,5 +69,6 @@ export async function insertInitialMovies(connection) {
         ('千と千尋の神隠し', 5, true)
       `
         );
+        console.log('初期データを挿入しました');
     }
 }

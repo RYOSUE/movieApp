@@ -17,8 +17,6 @@ async function main() {
     await moviesModel.createMoviesTable(connection);
 
     moviesModel.insertInitialMovies(connection)
-        .then(() => console.log('初期データを挿入しました'))
-
     app.set('view engine', 'ejs');
     app.set('views', path.join(__dirname, 'views'));
 

@@ -9,7 +9,7 @@
 
 <body>
     <h1>編集</h1>
-    <form action="/movies/<%= movie.id%>/edit?method=PUT" method="POST">
+    <form action="/movies/<%= movie.id %>?_method=PUT" method="POST">
         <p>
             <label for="title">タイトル: </label>
             <input type="text" name="title" placeholder="タイトル" value="<%= movie.title %>" required>

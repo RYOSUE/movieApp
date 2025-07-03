@@ -12,6 +12,8 @@
     <a href="/movies/new">新規登録</a>
     <ul>
         <% for (movie of movies) { %>
+            <!-- idチェック -->
+             <%= movie.id %>
             <h2>
                 <%= movie.title %>
             </h2>

@@ -25,6 +25,12 @@ async function main() {
         res.render('../home');
     });
 
+    app.get('/movies', async (req, res) => {
+        const movies = await moviesModel.getAllMovies(connection);
+        // res.send(movies);
+        res.render('index', { movies });
+    });
+
     app.listen(3000, () => {
         console.log('ポート3000でリクエストを待ち受け中...');
     });

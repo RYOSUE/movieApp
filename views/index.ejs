@@ -13,10 +13,11 @@
     <ul>
         <% for (movie of movies) { %>
             <!-- idチェック -->
-             <%= movie.id %>
+            <!-- <%= movie.id %> -->
             <h2>
                 <%= movie.title %>
             </h2>
+            <p> <a href="/movies/<%= movie.id %>/edit">編集</a></p>
             <li>評価: <%= movie.rating %>
             </li>
             <li>観た: <%= movie.watched ? 'はい' : 'いいえ' %>

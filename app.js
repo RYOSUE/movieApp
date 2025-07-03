@@ -52,6 +52,13 @@ async function main() {
         res.redirect('/movies');
     });
 
+    app.put('/movies/:id', async (req, res) => {
+        const id = req.params.id;
+        const { title, rating, watched } = req.body;
+        await moviesModel.updateMovie(connection, id, title, rating, watched);
+        res.redirect('/movies');
+    })
+
     app.listen(3000, () => {
         console.log('ポート3000でリクエストを待ち受け中...');
     });

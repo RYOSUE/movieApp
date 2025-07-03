@@ -45,6 +45,14 @@ export async function getAllMovies(connection) {
     return rows;
 }
 
+export async function getMovieById(connection, id) {
+    const [rows] = await connection.query('SELECT * FROM movies WHERE id = ?', [id]);
+    if (rows.length === 0) {
+        return null; // 映画が見つからない場合はnullを返す
+    };
+    return rows[0];
+}
+
 export async function updateMovie(connection, id, title, rating, watched) {
     await connection.query(
         'UPDATE movies SET title = ?, rating = ?, watched = ? WHERE id = ?', [title, rating, watched, id]

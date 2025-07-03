@@ -5,6 +5,7 @@ const __dirname = import.meta.dirname;
 import dotenv from 'dotenv';
 dotenv.config({ path: path.join(__dirname, '.env') });
 import * as moviesModel from './models/movies.js';
+import methodOverride from 'method-override';
 
 async function main() {
     // MySQLの接続設定
@@ -22,6 +23,8 @@ async function main() {
 
     // req.bodyのパース用ミドルウェア
     app.use(express.urlencoded({ extended: true }));
+    // put/delete用ミドルウェア
+    app.use(methodOverride('_method'));
 
     app.get('/', (req, res) => {
         res.render('../home');
@@ -35,6 +38,12 @@ async function main() {
 
     app.get('/movies/new', (req, res) => {
         res.render('new');
+    });
+
+    app.get('/movies/:id/edit', async (req, res) => {
+        const id = req.params.id;
+        const movie =  await moviesModel.getMovieById(connection, id);
+        res.render('edit', { id, movie });
     });
 
     app.post('/movies/new', async (req, res) => {

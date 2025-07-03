@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>編集</title>
+</head>
+
+<body>
+    <h1>編集</h1>
+    <form action="/movies/<%= movie.id%>/edit?method=PUT" method="POST">
+        <p>
+            <label for="title">タイトル: </label>
+            <input type="text" name="title" placeholder="タイトル" value="<%= movie.title %>" required>
+        </p>
+        <p>
+            <label for="rating">評価: </label>
+            <input type="number" name="rating" placeholder="3" value="<%= movie.rating %>" required>
+        </p>
+        <p>
+            <label for="watched">観た?: </label>
+            <select name="watched" id="watched">
+                <% if (movie.watched) { %>
+                    <option value=1 selected>観た</option>
+                    <option value=0>観ていない</option>
+                    <% } else {%>
+                        <option value=1>観た</option>
+                        <option value=0 selected>観ていない</option>
+                        <% } %>
+            </select>
+        </p>
+        <button>登録する</button>
+    </form>
+    <a href="/movies">一覧に戻る</a>
+
+</body>
+
+</html>

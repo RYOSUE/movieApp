@@ -20,6 +20,8 @@ async function main() {
     app.set('view engine', 'ejs');
     app.set('views', path.join(__dirname, 'views'));
 
+    // req.bodyのパース用ミドルウェア
+    app.use(express.urlencoded({ extended: true }));
 
     app.get('/', (req, res) => {
         res.render('../home');
@@ -29,6 +31,16 @@ async function main() {
         const movies = await moviesModel.getAllMovies(connection);
         // res.send(movies);
         res.render('index', { movies });
+    });
+
+    app.get('/movies/new', (req, res) => {
+        res.render('new');
+    });
+
+    app.post('/movies/new', async (req, res) => {
+        const { title, rating, watched } = req.body;
+        await moviesModel.insertMovie(connection, title, rating, watched);
+        res.redirect('/movies');
     });
 
     app.listen(3000, () => {
